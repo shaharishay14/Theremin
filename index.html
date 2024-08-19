@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Theremin</title>
+    </head>
+    <body>
+        <canvas id="myCanvas"></canvas>
+        
+        <script>
+            const myVideo = document.createElement('video');
+
+            navigator.mediaDevices.getUserMedia({ video: true }
+            ).then(function(rawData) {
+                myVideo.srcObject = rawData;
+                myVideo.play();
+                myVideo.onloadeddata = function() {
+                    myCanvas.width = myVideo.videoWidth;
+                    myCanvas.height = myVideo.videoHeight;
+                    new Effect(myCanvas, myVideo);
+                };
+            }).catch(function(err) {
+                console.log("Error: " + err);
+            });
+        </script>
+        <script src="effect.js"></script>
+        <script src="utils.js"></script>
+
+    </body>
+</html>
